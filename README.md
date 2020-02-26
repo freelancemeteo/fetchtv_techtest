@@ -1,6 +1,6 @@
 # fetchTV techtest
 
-A Django application that interacts with the OMDB to return results of a simple query
+A Django application that interacts with the OMDB API to return results of a simple query
 
 ## Getting Started
 
@@ -22,54 +22,36 @@ sudo apt-get install sqlitebrowser
 
 ### Installing
 
-Create a new virtual environment if desired.
-
-Assuming python is installed on the system, install any further dependencies:
+Create a new virtual environment if desired, and activate it:
 
 ```
-pip install pandas
+source $VENV/bin/activate
 ```
 
-In the project directory, setup of the local SQLite3 database is done with:
+Change to project directory, pull repository and install any further dependencies with pip:
 
 ```
-python init.py
+git pull https://github.com/freelancemeteo/fetchtv_techtest.git
+pip install -r requirements.txt
 ```
 
-One can add Accumulation block fields for ingest into the database as desired by editing the config.py file.
-
+There is no need to initialise any Django databases.
 
 ### Usage
 
-To ingest a NEM13 csv file (with verbose output), use:
+To run locally, launch a Django server:
 
 ```
-chmod u+x octopus_techtest.py
-./octopus_techtest.py -v sample.csv
-```
-The sample.csv is provided.
-
-Use the SQLite3 browser to view data in the database.
-
-
-## Running the tests
-
-Tests are run using pytest as follows:
-
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+python manage.py runserver
 ```
 
-### And coding style tests
+And navigate to the suggested localhost address.
 
-Explain what these tests test and why
+
+## Running tests
+
+A small suite of Django tests can be run with:
 
 ```
-Give an example
+python manage.py test
 ```
-

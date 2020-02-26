@@ -12,6 +12,7 @@ class SearchType(Enum):
     Series = "series"
     Episodes = "episodes"
 
+
 # OMDB API config
 OMDB_API_URL = "http://www.omdbapi.com/"
 OMDB_API_KEY = "c769b385"
@@ -22,7 +23,6 @@ IMDB_URL = "http://www.imdb.com/title/"
 
 # required POST vars to denote POST search
 POST_VARS = {"search_type", "search_term"}
-
 
 
 # Create your views here.
@@ -62,6 +62,7 @@ def query_external(search_type, search_term):
 
     # query API page by page up until OMBD_API_MAX_PAGES
     # have been retrieved. Accumulate results.
+
     try:
         results = []
         for page in range(1, OMDB_API_MAX_PAGES + 1):
@@ -77,16 +78,17 @@ def query_external(search_type, search_term):
             # convert response to dataframe and append
             results.append(pd.DataFrame(response.json()["Search"]))
 
+            # concat results tables
+            df = pd.concat(results, axis=0)
+
+            # add links to the IMDB website
+            df["Link"] = IMDB_URL + df["imdbID"]
+
+            return (df, False)
+
     except Exception as e:
 
-    	# something's failed, return empty and flag error
         return (pd.DataFrame(), True)
 
 
-    # concat results tables
-    df = pd.concat(results, axis=0)
-
-    # add links to the IMDB website
-    df["Link"] = IMDB_URL + df["imdbID"]
-
-    return (df, False)
+    return (pd.DataFrame(), True)

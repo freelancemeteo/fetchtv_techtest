@@ -11,17 +11,19 @@ class QueryExternalTestCase(TestCase):
 		pass
 
 	def test_known_query(self):
-		(df, success) = query_external("movie", "dancer in the dark")
+		(df, error) = query_external("movie", "dancer in the dark")
 
-		self.assertEqual(success, True)
+		self.assertEqual(error, False)
 		self.assertEqual(df.iloc[0]['Year'], '2000')
 
 
 	def test_noresults_query(self):
-		(df, success) = query_external("episode", "qwerty")
-
-		self.assertEqual(success, True)
+		(df, error) = query_external("episode", "qwerty")
+		
+		self.assertEqual(error, True)
 		self.assertEqual(len(df), 0)
+
+
 
 
 

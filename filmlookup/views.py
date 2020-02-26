@@ -78,13 +78,13 @@ def query_external(search_type, search_term):
             # convert response to dataframe and append
             results.append(pd.DataFrame(response.json()["Search"]))
 
-            # concat results tables
-            df = pd.concat(results, axis=0)
+        # concat all results pages/dataframes
+        df = pd.concat(results, axis=0)
 
-            # add links to the IMDB website
-            df["Link"] = IMDB_URL + df["imdbID"]
+        # add links to the IMDB website
+        df["Link"] = IMDB_URL + df["imdbID"]
 
-            return (df, False)
+        return (df, False)
 
     except Exception as e:
 

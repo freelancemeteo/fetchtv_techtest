@@ -14,14 +14,17 @@ Create a new virtual environment if desired (recommended), and activate it:
 source $VENV/bin/activate
 ```
 
-Change to project directory, pull repository and install any further dependencies with pip:
+Change to project directory, clone repository and install any further dependencies with pip:
 
 ```
-git pull https://github.com/freelancemeteo/fetchtv_techtest.git
+git clone https://github.com/freelancemeteo/fetchtv_techtest.git
 pip install -r requirements.txt
 ```
 
-There is no need to initialise any Django databases.
+Initialise the cache table:
+```
+python manage.py createcachetable
+```
 
 ### Usage
 

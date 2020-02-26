@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% load cache %}
-
 {% block content %}
 
 <h2>OMDB lookup</h2>
@@ -32,15 +30,9 @@
 {% else %}
 	
 	{% if show_results %}
-
-		{% cache None results search_type search_term %}
-
 		Your search for {{search_type}} with the term '{{search_term}}' has returned {{results|length}} results.
 		<br>
 		<br>
-
-
-
 		<table>
 	    <tr>
 	        <th align="left">Title</th>
@@ -48,17 +40,15 @@
 	        <th align="left">Year</th>
 	        <th align="left">Link to IMDB website</th>
 	    </tr>
-	    {% for item in results.itertuples %}
+	    {% for r in results %}
 	    <tr> 
-	        <td>{{ item.Title }}</td>
-	        <td>{{ item.Type }}</td>
-	        <td>{{ item.Year }}</td>
-	        <td><a href="{{ item.Link }}">{{ item.Link }}</a></td>
+	        <td>{{ r.title }}</td>
+	        <td>{{ r.ftype }}</td>
+	        <td>{{ r.year }}</td>
+	        <td><a href="{{ r.link }}">{{ r.link }}</a></td>
 	    </tr>
 	    {% endfor %}
 		</table>
-
-		{% endcache %}
 
 	{% endif %}
 

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from filmlookup.views import query_external
+from filmlookup.models import Search, Result
 
 # Create your tests here.
 
@@ -12,13 +12,14 @@ class QueryExternalTestCase(TestCase):
         pass
 
     def test_known_query(self):
-        (df, error) = query_external("movie", "dancer in the dark")
+        search = Search(search_type="movie", search_term="dancer in the dark")
+        error = search.query_external()
 
         self.assertEqual(error, False)
-        self.assertEqual(df.iloc[0]["Year"], "2000")
+        self.assertEqual(search.results.first().year, "2000")
 
     def test_noresults_query(self):
-        (df, error) = query_external("episode", "qwerty")
+        search = Search(search_type="episode", search_term="qwerty")
+        error = search.query_external()
 
         self.assertEqual(error, True)
-        self.assertEqual(len(df), 0)

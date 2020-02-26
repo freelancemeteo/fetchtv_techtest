@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% load cache %}
+
+{% block content %}
+
+<h2>OMDB lookup</h2>
+
+<form action="" method="POST">
+	{% csrf_token %}
+	Search for 
+	<select name="search_type">
+		{% for item in search_types %}
+		<option value={{ item.value }} {% if search_type == item.value %}selected{% endif %}>{{ item.name }}</option>
+		{% endfor %}
+	</select>
+	 pertinent to the search term 
+	<input type="text" name="search_term" value="{{search_term}}">
+	<input type="submit" value="Search">
+</form>
+<br>
+<br>
+
+{% if error %}
+
+    Your search for {{search_type}} involving {{search_term}} failed.
+    Please do try again.
+
+{% else %}
+	
+	{% if show_results %}
+
+		{% cache None results search_type search_term %}
+
+		Your search for {{search_type}} involving {{search_term}} has returned {{results|length}} results.
+		<br>
+		<br>
+
+		<table>
+	    <tr>
+	        <th align="left">Title</th>
+	        <th align="left">Type</th>
+	        <th align="left">Year</th>
+	        <th align="left">Link to IMDB website</th>
+	    </tr>
+	    {% for item in results.itertuples %}
+	    <tr> 
+	        <td>{{ item.Title }}</td>
+	        <td>{{ item.Type }}</td>
+	        <td>{{ item.Year }}</td>
+	        <td><a href="{{ item.Link }}">{{ item.Link }}</a></td>
+	    </tr>
+	    {% endfor %}
+		</table>
+
+		{% endcache %}
+
+	{% endif %}
+
+{% endif %}
+
+{% endblock %}

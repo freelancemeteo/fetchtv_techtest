@@ -6,23 +6,9 @@ A Django application that interacts with the OMDB API to return results of a sim
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
-### Prerequisites
-
-You will need SQLite3 installed:
-
-```
-sudo apt-get install sqlite3
-```
-
-SQLite3 browser is optional, but recommended for viewing data in the database:
-
-```
-sudo apt-get install sqlitebrowser
-```
-
 ### Installing
 
-Create a new virtual environment if desired, and activate it:
+Create a new virtual environment if desired (recommended), and activate it:
 
 ```
 source $VENV/bin/activate

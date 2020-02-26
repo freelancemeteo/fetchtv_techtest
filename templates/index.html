@@ -6,6 +6,7 @@
 
 <h2>OMDB lookup</h2>
 
+{# lookup form #}
 <form action="" method="POST">
 	{% csrf_token %}
 	Search for 
@@ -21,20 +22,24 @@
 <br>
 <br>
 
+{# display any error messages provided #}
 {% if error %}
 
-    Your search for {{search_type}} involving {{search_term}} failed.
+    Your search for {{search_type}} with the term '{{search_term}}' failed.
     Please do try again.
 
+{# display results if required, cached using Django cache system #}
 {% else %}
 	
 	{% if show_results %}
 
 		{% cache None results search_type search_term %}
 
-		Your search for {{search_type}} involving {{search_term}} has returned {{results|length}} results.
+		Your search for {{search_type}} with the term '{{search_term}}' has returned {{results|length}} results.
 		<br>
 		<br>
+
+
 
 		<table>
 	    <tr>

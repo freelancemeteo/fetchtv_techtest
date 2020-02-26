@@ -10,7 +10,7 @@ from enum import Enum
 class SearchType(Enum):
     Movies = "movie"
     Series = "series"
-    Episodes = "episodes"
+    Episodes = "episode"
 
 
 # OMDB API config
@@ -89,6 +89,5 @@ def query_external(search_type, search_term):
     except Exception as e:
 
         return (pd.DataFrame(), True)
-
 
     return (pd.DataFrame(), True)

@@ -19,5 +19,5 @@ from filmlookup import views
 from filmlookup import models
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path("", views.index, name="index"),
 ]
